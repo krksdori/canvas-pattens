@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> thingy </title>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="shortcut icon" href="../icon.png"/>
+	<script>
+	window.onload = function() {
+
+		var canvas = document.getElementById("pattern-canvas");
+		canvas.width = document.body.clientWidth;
+		canvas.height = document.body.clientHeight;
+
+
+
+	var c = canvas.getContext('2d');
+
+	var i, j, u, v, x, y,
+	    m = 40,
+	    n = 40,
+	    size = 15,
+	    t = 0;
+
+	    
+	c.fillStyle = 'rgba(0,0,0,0.8)';
+	function draw(){
+		var sin = Math.sin,
+			cos = Math.cos;
+
+	  c.clearRect(0, 0, canvas.width, canvas.height);
+	  for(i = 0; i < m; i++){
+	    for(j = 0; j < n; j++){
+	      u = i/(m-1); //from 0 to 1
+	      v = j/(n-1);
+	      x = u * canvas.width + sin(t+i)*10; //change t+j or i
+	      y = v * canvas.height + sin(t+j)*10;
+
+	      var gradient=c.createLinearGradient(0,0,canvas.width,0);
+		  gradient.addColorStop("0","black");
+		  gradient.addColorStop("0.5","blue");
+	      gradient.addColorStop("1.0", "black");
+	      c.fillStyle = gradient;
+
+
+
+	    
+	      c.beginPath();
+	      c.arc(x, y, size, 0, 2 * Math.PI);
+	      c.fill();	
+	    }
+	  }
+	  t = t + 0.1;
+	  requestAnimationFrame(draw); //instead of setInterval
+	}
+
+	draw();
+
+};
+
+	</script>
+	<script type='text/javascript' src='../script/subscript.js'></script>
+
+	<style>
+		body, html{
+			margin : 0px;
+			padding: 0px;
+		}
+	</style>
+</head>
+<body>
+ 	<canvas id="pattern-canvas" width="1440" height="900"></canvas>
+</body>
+</html>

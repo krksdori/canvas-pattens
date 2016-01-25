@@ -1,0 +1,72 @@
+<html>
+<head>
+	<title>thingy</title>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="shortcut icon" href="../icon.png"/>
+</head>
+<body>
+	<canvas id="pattern-canvas"></canvas>
+
+	<script>
+
+		var ctx, c;
+
+		document.addEventListener('DOMContentLoaded', function(event) { 
+			c = document.getElementById('pattern-canvas');
+			c.width = document.body.clientWidth;
+			c.height = document.body.clientHeight;
+			ctx = c.getContext('2d');
+
+			
+			drawLines();
+		});
+
+		document.addEventListener('mousemove', function(evt){
+			console.log(evt.pageX, evt.pageY);
+			drawLines(evt.pageX, evt.pageY);
+		});
+
+
+
+		function drawLines(mouseX, mouseY){
+			ctx.clearRect(0, 0, c.width, c.height);
+
+			
+			var dist = 20;
+			var lineThickness = 1;
+
+			for(var x = 0; x < document.body.clientWidth; x+=dist){
+				var distanceXFromMouse = Math.abs(x - mouseX);
+				ctx.beginPath();
+
+				ctx.moveTo(x, 0);
+				ctx.lineTo(x, document.body.clientHeight);	
+				ctx.strokeStyle = "rgba(0, 0, 0, 0.8)";
+				ctx.lineWidth = Math.max(1, distanceXFromMouse / 50);
+				ctx.closePath();
+
+				ctx.stroke();
+			}	
+
+			for(var y = 0; y < document.body.clientHeight; y+=dist){
+				var distanceYFromMouse = Math.abs(y - mouseY);
+
+				ctx.beginPath();
+
+				ctx.moveTo(0, y);
+				ctx.lineTo(document.body.clientWidth, y);	
+				ctx.strokeStyle = "rgba(0, 0, 0, 0.8)";
+				ctx.lineWidth = Math.max(1, distanceYFromMouse / 1800);
+				ctx.closePath();
+
+				ctx.stroke();
+			}		
+
+		}
+	</script>
+	<script type='text/javascript' src='../script/subscript.js'></script>
+
+</body>
+</html>
+

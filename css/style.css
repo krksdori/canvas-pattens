@@ -1,0 +1,9 @@
+body {
+	cursor: pointer;
+	overflow: hidden;
+}
+
+canvas {
+	width: 100% !important;
+	height: 100% !important;
+}
